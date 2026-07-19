@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "name": "Munnar",
+    "state": "Kerala",
+    "country": "India",
+    "bestMonths": [
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "tripTypes": [
+      "Nature",
+      "Family",
+      "Couples"
+    ],
+    "budget": {
+      "low": 12000,
+      "medium": 18000,
+      "high": 30000
+    },
+    "temperature": {
+      "min": 18,
+      "max": 24
+    },
+    "weather": [
+      "Rainy",
+      "Pleasant"
+    ],
+    "rating": 4.9,
+    "duration": "3-5 Days",
+    "airport": "Cochin International Airport",
+    "railway": "Aluva Railway Station",
+    "highlights": [
+      "Tea Plantations",
+      "Waterfalls",
+      "Eravikulam National Park"
+    ],
+    "activities": [
+      "Trekking",
+      "Photography",
+      "Boating"
+    ],
+    "food": [
+      "Appam",
+      "Kerala Sadya",
+      "Puttu"
+    ],
+    "description": "Munnar is famous for tea plantations and beautiful hills."
+  },
+  {
+    "id": 2,
+    "name": "Coorg",
+    "state": "Karnataka",
+    "country": "India",
+    "bestMonths": [
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "tripTypes": [
+      "Nature",
+      "Adventure"
+    ],
+    "budget": {
+      "low": 10000,
+      "medium": 16000,
+      "high": 25000
+    },
+    "temperature": {
+      "min": 19,
+      "max": 25
+    },
+    "weather": [
+      "Cloudy",
+      "Pleasant"
+    ],
+    "rating": 4.8,
+    "duration": "2-4 Days",
+    "airport": "Kannur International Airport",
+    "railway": "Mysore Railway Station",
+    "highlights": [
+      "Coffee Plantations",
+      "Abbey Falls",
+      "Raja Seat"
+    ],
+    "activities": [
+      "Camping",
+      "Trekking",
+      "Photography"
+    ],
+    "food": [
+      "Pandi Curry",
+      "Kadambuttu"
+    ],
+    "description": "Coorg is famous for coffee estates and green hills."
+  }
+]
