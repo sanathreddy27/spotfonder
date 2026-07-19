@@ -1,16 +1,80 @@
-# React + Vite
+# 🌍 SpotFonder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SpotFonder is an AI-powered travel planner that helps users explore tourist destinations across India. It provides personalized travel itineraries, weather updates, hotel and restaurant recommendations, attractions, budget planning, and Google Maps integration.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- 🤖 AI-powered 3-Day & 5-Day travel itinerary
+- 🌤 Live weather information
+- 🏨 Hotel recommendations
+- 🍽 Restaurant recommendations
+- 📍 Tourist attractions
+- 💰 Budget planner
+- 🗺 Google Maps integration
+- 🔐 User Authentication (JWT)
+- ❤️ Save favorite trips
+- 📱 Responsive design
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- Framer Motion
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+
+### APIs
+- Geoapify API
+- OpenWeather API
+- Pexels API
+
+---
+
+## 🚀 Installation
+
+### Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+---
+
+## 📌 Future Improvements
+
+- AI Chat Travel Assistant
+- PDF Itinerary Download
+- Smart Route Optimization
+- Multi-language Support
+- Live Travel Alerts
+
+---
+
+## 👨‍💻 Developer
+
+**Sanath Reddy**
+
+GitHub:
+https://github.com/sanathreddy27
