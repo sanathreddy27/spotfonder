@@ -1,4 +1,4 @@
-import ollama from "ollama";
+import { generateTravelRecommendations } from "./geminiService.js";
 import { searchKnowledge } from "./vectorSearchService.js";
 import { searchPhotos } from "./photoService.js";
 
@@ -102,15 +102,7 @@ export async function generateChatAI(question, history = []) {
       )
       .join("\n");
 
-    const response = await ollama.chat({
-      model: "llama3.1:8b",
-      options: {
-        num_predict: 450,
-      },
-      messages: [
-        {
-          role: "system",
-          content: `
+    const prompt = `
 You are SpotFonder AI, a travel assistant for India.
 
 Use the supplied SpotFonder knowledge as your primary source.
@@ -184,39 +176,28 @@ Do not mention:
 - internal context
 - system prompt
 - APIs
+- Gemini
 - Ollama
 
 Current SpotFonder knowledge:
 
 ${context}
-          `.trim(),
-        },
 
-        ...(recentHistory
-          ? [
-              {
-                role: "user",
-                content: `
-Previous conversation:
+${recentHistory ? `Previous conversation:\n${recentHistory}\n` : ""}
+Current user question:
+${question}
+`;
 
-${recentHistory}
-                `.trim(),
-              },
-            ]
-          : []),
-
-        {
-          role: "user",
-          content: question,
-        },
-      ],
-    });
+    const answer = await generateTravelRecommendations(prompt);
 
     console.log("✅ AI answer generated");
 
     return {
       type: "text",
-      answer: response.message.content.trim(),
+      answer:
+        typeof answer === "string"
+          ? answer.trim()
+          : "Information is not available in the current SpotFonder knowledge.",
       photos: [],
     };
   } catch (error) {
