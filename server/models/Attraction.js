@@ -5,28 +5,113 @@ const attractionSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
 
     destination: {
       type: String,
       required: true,
+      index: true,
     },
 
-    type: String,
+    type: {
+      type: String,
+      default: "Tourist Attraction",
+    },
 
-    description: String,
+    description: {
+      type: String,
+      default: "",
+    },
 
-    entryFee: Number,
+    history: {
+      type: String,
+      default: "",
+    },
 
-    timings: String,
+    entryFee: {
+      type: Number,
+      default: null,
+    },
 
-    image: String,
+    timings: {
+      type: String,
+      default: "",
+    },
 
-    rating: Number,
+    image: {
+      type: String,
+      default: null,
+    },
+
+    rating: {
+      type: Number,
+      default: null,
+    },
+
+    state: {
+      type: String,
+      default: "",
+    },
+
+    category: {
+      type: String,
+      default: "Attraction",
+    },
+
+    importance: {
+      type: String,
+      default: "",
+    },
+
+    famousFor: {
+      type: String,
+      default: "",
+    },
+
+    tips: {
+      type: [String],
+      default: [],
+    },
+
+    tags: {
+      type: [String],
+      default: [],
+    },
+
+    knowledgeText: {
+      type: String,
+      default: "",
+    },
+
+    latitude: {
+      type: Number,
+      default: null,
+    },
+
+    longitude: {
+      type: Number,
+      default: null,
+    },
+
+    images: {
+      type: [String],
+      default: [],
+    },
+
+    cachedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export default mongoose.model("Attraction", attractionSchema);
+const Attraction = mongoose.model(
+  "Attraction",
+  attractionSchema
+);
+
+export default Attraction;

@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
 import AITopPicks from "../components/AITopPicks/AITopPicks";
+import TravelChatbot from "../components/TravelChatbot/TravelChatbot";
 import TripPlanner from "../components/TripPlanner/TripPlanner";
 import PopularDestinations from "../components/PopularDestinations/PopularDestinations";
 import WhyChoose from "../components/WhyChoose/WhyChoose";
@@ -16,6 +17,8 @@ function Home() {
       <div id="ai-top-picks">
         <AITopPicks />
       </div>
+
+      <TravelChatbot />
 
       <div id="trip-planner">
         <TripPlanner />

@@ -1,69 +1,110 @@
-import Destination from "../models/Destination.js";
-import { buildDestination } from "../services/destinationService.js";
-import { generateItinerary } from "../services/aiItineraryService.js";
+import { getWeather } from "../services/weatherService.js";
+import {
+  getCoordinates,
+  getNearbyPlaces,
+} from "../services/geoapifyService.js";
 
 export const getDestinationDetails = async (req, res) => {
   try {
-    const { name } = req.params;
+    const destination = decodeURIComponent(req.params.name);
 
-    // 1. Check MongoDB first
-    const existingDestination = await Destination.findOne({
-      name: new RegExp(`^${name}$`, "i"),
-    });
+    console.log("=================================");
+    console.log("📍 Destination:", destination);
+    console.log("=================================");
 
-    // DEVELOPMENT MODE
-    // Always regenerate destination data.
-    // We will enable caching again before deployment.
-    console.log("🔄 Development Mode - Skipping MongoDB Cache");
+    // ------------------------------------
+    // GET COORDINATES
+    // ------------------------------------
 
-    console.log("🌍 Fetching destination from APIs...");
+    const coordinates = await getCoordinates(destination);
 
-    // 2. Fetch from APIs
-    const destination = await buildDestination(name);
-
-    if (!destination) {
+    if (!coordinates) {
       return res.status(404).json({
         success: false,
-        message: "Destination not found",
+        message: "Destination coordinates not found",
       });
     }
 
-    // 3. Generate AI itinerary
-    const itinerary = await generateItinerary(destination);
+    console.log("📍 Coordinates:", coordinates);
 
-    console.log(
-      JSON.stringify(itinerary.threeDays[0], null, 2)
+    // ------------------------------------
+    // GET WEATHER
+    // ------------------------------------
+
+    const weather = await getWeather(destination);
+
+    // ------------------------------------
+    // GET ATTRACTIONS
+    // ------------------------------------
+
+    console.log("🏞️ Finding attractions...");
+
+    const attractions = await getNearbyPlaces(
+      coordinates.latitude,
+      coordinates.longitude,
+      "tourism",
+      20000,
+      20
     );
 
-    // 4. Save/Update into MongoDB
-    let savedDestination;
+    // ------------------------------------
+    // GET HOTELS
+    // ------------------------------------
 
-    if (existingDestination) {
-      existingDestination.set({
-        ...destination,
-        itinerary,
-        cachedAt: new Date(),
-      });
+    console.log("🏨 Finding hotels...");
 
-      savedDestination = await existingDestination.save();
-      console.log("🔄 Existing document updated in MongoDB");
-    } else {
-      savedDestination = await Destination.create({
-        ...destination,
-        itinerary,
-        cachedAt: new Date(),
-      });
-      console.log("💾 New document saved into MongoDB");
-    }
+    const hotels = await getNearbyPlaces(
+      coordinates.latitude,
+      coordinates.longitude,
+      "accommodation.hotel",
+      10000,
+      20
+    );
 
-    // 5. Return response
+    // ------------------------------------
+    // GET RESTAURANTS
+    // ------------------------------------
+
+    console.log("🍽️ Finding restaurants...");
+
+    const restaurants = await getNearbyPlaces(
+      coordinates.latitude,
+      coordinates.longitude,
+      "catering.restaurant",
+      10000,
+      20
+    );
+
+    console.log("=================================");
+    console.log("✅ Destination data loaded");
+    console.log("Attractions:", attractions.length);
+    console.log("Hotels:", hotels.length);
+    console.log("Restaurants:", restaurants.length);
+    console.log("=================================");
+
+    // ------------------------------------
+    // SEND RESPONSE
+    // ------------------------------------
+
     res.json({
       success: true,
-      destination: savedDestination,
-    });
 
+      destination: {
+        name: destination,
+
+        coordinates,
+
+        weather,
+      },
+
+      attractions,
+
+      hotels,
+
+      restaurants,
+    });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Destination Details Error:", error);
 
     res.status(500).json({
       success: false,

@@ -8,10 +8,14 @@ import aiRoutes from "./routes/aiRoutes.js";
 import itineraryRoutes from "./routes/itineraryRoutes.js";
 import contextRoutes from "./routes/contextRoutes.js";
 import destinationRoutes from "./routes/destinationRoutes.js";
+import destinationAIRoutes from "./routes/destinationAIRoutes.js";
+import attractionRoutes from "./routes/attractionRoutes.js";
 import geocodeRoutes from "./routes/geocodeRoutes.js";
 import routeRoutes from "./routes/routeRoutes.js";
 import favoriteRoutes from "./routes/favoriteRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import tripPlannerRoutes from "./routes/tripPlannerRoutes.js";
 
 dotenv.config();
 
@@ -34,6 +38,11 @@ app.use("/api", aiRoutes);
 app.use("/api", itineraryRoutes);
 app.use("/api", contextRoutes);
 app.use("/api", destinationRoutes);
+app.use("/api/destination", destinationRoutes);
+app.use("/api/destination-ai", destinationAIRoutes);
+app.use("/api/attraction", attractionRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/trip-planner", tripPlannerRoutes);
 app.use("/api", geocodeRoutes);
 app.use("/api", routeRoutes);
 app.use("/api", favoriteRoutes);

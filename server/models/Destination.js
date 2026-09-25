@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
-// Sub-schema for places (Hotels, Restaurants, Attractions)
+// --------------------------------------------------
+// PLACE SCHEMA
+// Hotels, Restaurants, Attractions
+// --------------------------------------------------
+
 const placeSchema = new mongoose.Schema(
   {
     name: String,
@@ -13,7 +17,10 @@ const placeSchema = new mongoose.Schema(
   { _id: false }
 );
 
-// Updated Itinerary Day Schema with budget sub-document
+// --------------------------------------------------
+// ITINERARY DAY SCHEMA
+// --------------------------------------------------
+
 const itineraryDaySchema = new mongoose.Schema(
   {
     day: Number,
@@ -58,36 +65,126 @@ const itineraryDaySchema = new mongoose.Schema(
   { _id: false }
 );
 
-// Main Destination Schema linking threeDays and fiveDays structures
+// --------------------------------------------------
+// DESTINATION SCHEMA
+// --------------------------------------------------
+
 const destinationSchema = new mongoose.Schema(
   {
+    // Basic destination information
     name: {
       type: String,
       required: true,
       unique: true,
       trim: true,
     },
-    description: String,
+
+    state: {
+      type: String,
+      default: "",
+    },
+
+    category: {
+      type: String,
+      default: "Destination",
+    },
+
+    // ------------------------------------------------
+    // RAG KNOWLEDGE
+    // ------------------------------------------------
+
+    importance: {
+      type: String,
+      default: "",
+    },
+
+    famousFor: {
+      type: String,
+      default: "",
+    },
+
+    description: {
+      type: String,
+      default: "",
+    },
+
+    history: {
+      type: String,
+      default: "",
+    },
+
+    bestTime: {
+      type: String,
+      default: "",
+    },
+
+    tags: {
+      type: [String],
+      default: [],
+    },
+
+    knowledgeText: {
+      type: String,
+      default: "",
+    },
+
+    // ------------------------------------------------
+    // IMAGE
+    // ------------------------------------------------
+
     image: String,
+
+    images: {
+      type: [String],
+      default: [],
+    },
+
+    // ------------------------------------------------
+    // LIVE WEATHER
+    // ------------------------------------------------
+
     weather: {
       temperature: Number,
       weather: String,
     },
+
+    // ------------------------------------------------
+    // LIVE PLACES
+    // ------------------------------------------------
+
     attractions: [placeSchema],
+
     hotels: [placeSchema],
+
     restaurants: [placeSchema],
+
+    // ------------------------------------------------
+    // ITINERARY
+    // ------------------------------------------------
+
     itinerary: {
       threeDays: [itineraryDaySchema],
       fiveDays: [itineraryDaySchema],
     },
+
+    // ------------------------------------------------
+    // CACHE INFORMATION
+    // ------------------------------------------------
+
     cachedAt: {
       type: Date,
       default: Date.now,
     },
   },
-  { timestamps: true }
+
+  {
+    timestamps: true,
+  }
 );
 
-const Destination = mongoose.model("Destination", destinationSchema);
+const Destination = mongoose.model(
+  "Destination",
+  destinationSchema
+);
 
 export default Destination;
